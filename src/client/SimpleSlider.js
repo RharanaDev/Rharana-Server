@@ -1,6 +1,6 @@
 import Slider from "react-slick";
 import React, { Component } from "react";
-import {Link} from "react-router-dom";
+import Movie from "./components/Movie"
 
 const styleIcon = { 
     color: "black",
@@ -89,13 +89,8 @@ export default class SimpleSlider extends Component{
           this.state.videos.map(v=>{
             const videoLink = "/play/" + v._id;
             const imgLink = "/image/" + v.imgPath;
-            console.log(imgLink)
             return(
-            <div>
-              <Link to = {videoLink}>
-                <img src = {imgLink} style = {{width: "100%"}}></img> 
-              </Link>
-            </div>
+              <Movie video = {videoLink} image = {imgLink}></Movie>
             )
           })
         }

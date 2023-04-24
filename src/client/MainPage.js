@@ -1,7 +1,7 @@
 import React, {Component, useState, useEffect} from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import SimpleSlider from "./SimpleSlider";
+import SimpleSlider from "./components/MovieSlider";
 import BigSlider from "./BigSlider";
 
 const styleButton = 

@@ -84,13 +84,14 @@ export default class SimpleSlider extends Component{
     
     return (
       <div style={{textAlign: "center", position:"relative", zIndex:2,width:"100%", top: "80vh", paddingTop: "5vh"}}>
-        <Slider {...settings} style={{width:"90%", position:"relative", left: "5%"}}>
+        <Slider {...settings} style={{width:"90vw", position:"relative", left: "5vw"}}>
         {
           this.state.videos.map(v=>{
             const videoLink = "/play/" + v._id;
             const imgLink = "/image/" + v.imgPath;
+            const title = v.title;;
             return(
-              <Movie video = {videoLink} image = {imgLink}></Movie>
+              <Movie video = {videoLink} image = {imgLink} title = {title}></Movie>
             )
           })
         }

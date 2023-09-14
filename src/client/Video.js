@@ -1,24 +1,23 @@
-import React, {Component} from 'react'
-import withRouter from './withRouter';
+import React, {useState, useEffect} from 'react'
+import { useParams } from 'react-router-dom'
 const videoStyle = 
 {
   width : "50vw",
   height : "58vh",
 }
 
-class Video extends Component{
-  constructor()
-  {
-    super();
-    this.state = {
-    properties: {},
-    isLoading: true
-    }
-  }
+export default function Video (props){
+  const [properties, setProperties] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
+  const {id} = useParams();
+  
+  useEffect(() => {
+    fetchInfo()
+  },[])
 
-  fetchInfo()
+  function fetchInfo()
   {
-    fetch('/video/' + this.props.params.id,
+    fetch('/video/' + id,
     {
     	method: "GET",
       headers: {
@@ -30,28 +29,25 @@ class Video extends Component{
     .then(res => res.json())
     .then(data => {
       //Remember setState is asynchronous!
-      this.setState({ properties: data, isLoading: false}, () => 
-      console.log(this.state.properties));
+      setProperties(data)
+      setIsLoading(false)
     })
 
     .catch(error => console.warn(error));
   }
 
-  componentDidMount()
+  //Component Render
   {
-    this.fetchInfo();
-  }
-  render()
-  {
-    if (this.state.isLoading) {
-      return null;
+    if(isLoading)
+    {
+      return null
     }
-    return (
-      <video style={videoStyle} controls controlsList="nodownload" poster = {'/image/' + this.state.properties.imgPath}>
-        <source src = {'/stream/' + this.state.properties.path} type='video/webm'></source>
-      </video>
-    )
-  }
-}
 
-export default withRouter(Video)
+    return (
+    <video style={videoStyle} controls controlsList="nodownload" poster = {'/image/' + properties.imgPath}>
+      <source src = {'/stream/' + properties.path} type='video/webm'></source>
+    </video>
+  )
+  }
+
+}
